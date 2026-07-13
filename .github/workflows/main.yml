@@ -1,0 +1,48 @@
+name: Deploy Laravel ke cPanel
+
+on:
+  push:
+    branches:
+      - main # Akan berjalan otomatis saat Anda push ke branch 'main'
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🚚 Mengambil kode terbaru dari GitHub
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3' # <--- Bagian ini yang menyebabkan error
+          
+      - name: 📦 Install Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader
+# --- 2 LANGKAH BARU DITAMBAHKAN DI SINI ---
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Menggunakan Node.js versi 20
+          
+      - name: 🎨 Build Frontend Assets
+        run: |
+          npm install
+          npm run build
+      # ------------------------------------------
+      - name: 🚀 Upload ke cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: / # Ini akan mengarah ke Directory yang Anda set di FTP cPanel
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .env.example
+            .env
+            readme.md
