@@ -21,7 +21,21 @@ jobs:
           
       - name: 📦 Install Composer Dependencies
         run: composer install --no-dev --optimize-autoloader
+# --- 2 LANGKAH BARU DITAMBAHKAN DI SINI ---
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Menggunakan Node.js versi 20
+          
+      - name: 🎨 Build Frontend Assets
+        run: |
+          npm install
+          npm run build
+      # ------------------------------------------
 
+      - name: 🚀 Upload ke cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
       - name: 🚀 Upload ke cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
