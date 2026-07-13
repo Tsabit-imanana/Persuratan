@@ -68,7 +68,9 @@ class SuratPengantarRtController extends Controller
         
         $ketuaRt = $surat->ketuaRt;
 
-        // Mocking WA API Dispatch - log details & present a visual confirmation
+        // Dispatch background job to send WA message via Fonnte
+        \App\Jobs\SendRtNotificationJob::dispatch($surat);
+
         $waMessage = "Surat pengantar RT berhasil dibuat. Notifikasi WhatsApp permohonan ACC telah dikirim ke Ketua RT {$ketuaRt->nama} ({$ketuaRt->no_whatsapp}).";
 
         return redirect()->route('surat-rt.index')

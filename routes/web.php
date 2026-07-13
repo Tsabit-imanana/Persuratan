@@ -38,5 +38,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Fonnte WhatsApp Webhook Route (Exclude from CSRF in bootstrap/app.php)
-Route::post('/api/fonnte/webhook', [FonnteWebhookController::class, 'handle'])->name('webhook.fonnte');
+Route::match(['get', 'post'], '/api/fonnte/webhook', [FonnteWebhookController::class, 'handle'])->name('webhook.fonnte');
 
