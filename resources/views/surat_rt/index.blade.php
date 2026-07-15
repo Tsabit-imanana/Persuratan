@@ -97,9 +97,16 @@
                                 {{ $surat->created_at->format('d/m/Y H:i') }}
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="{{ route('surat-rt.show', $surat->id) }}" class="inline-flex items-center px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-lg text-xs font-bold transition-colors">
-                                    Detail
-                                </a>
+                                <div class="flex items-center justify-end gap-2">
+                                    <a href="{{ route('surat-rt.show', $surat->id) }}" class="inline-flex items-center px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-lg text-xs font-bold transition-colors">
+                                        Detail
+                                    </a>
+                                    @if ($surat->status === 'disetujui')
+                                        <a href="{{ route('surat-rt.download-pdf', $surat->id) }}" class="inline-flex items-center px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 rounded-lg text-xs font-bold transition-colors">
+                                            Download PDF
+                                        </a>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @endforeach

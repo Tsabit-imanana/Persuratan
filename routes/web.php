@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('ketua-rt', KetuaRtController::class)->except(['show']);
     
     // Surat Pengantar RT Routes
+    Route::get('/surat-rt/{suratRt}/download-pdf', [SuratPengantarRtController::class, 'downloadPdf'])->name('surat-rt.download-pdf');
     Route::resource('surat-rt', SuratPengantarRtController::class)->only(['index', 'create', 'store', 'show']);
     
     // Surat Pengantar Kelurahan Routes

@@ -85,4 +85,21 @@ class SuratPengantarRtController extends Controller
         $suratRt->load('ketuaRt');
         return view('surat_rt.show', compact('suratRt'));
     }
+
+    /**
+     * Download the approved Surat Pengantar RT as PDF.
+     */
+    public function downloadPdf(SuratPengantarRt $suratRt)
+    {
+        if ($suratRt->status !== 'disetujui') {
+            abort(403, 'Surat ini belum disetujui.');
+        }
+
+        $suratRt->load('ketuaRt');
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('surat_rt.pdf', compact('suratRt'));
+        
+        $filename = 'surat-pengantar-rt-' . str_pad($suratRt->id, 5, '0', STR_PAD_LEFT) . '.pdf';
+        return $pdf->download($filename);
+    }
 }

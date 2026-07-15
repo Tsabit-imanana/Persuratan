@@ -17,7 +17,9 @@ jobs:
       - name: ⚙️ Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3' # <--- Bagian ini yang menyebabkan error
+          php-version: '8.3'
+          extensions: gd, mbstring, dom, xml
+          coverage: none
           
       - name: 📦 Install Composer Dependencies
         run: composer install --no-dev --optimize-autoloader

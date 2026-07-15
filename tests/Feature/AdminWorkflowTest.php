@@ -146,4 +146,57 @@ class AdminWorkflowTest extends TestCase
             'catatan' => 'Berkas lengkap dan sah',
         ]);
     }
+
+    /**
+     * Test admin can download approved Surat Pengantar RT PDF.
+     */
+    public function test_admin_can_download_approved_surat_pengantar_rt_pdf(): void
+    {
+        $this->actingAs($this->admin);
+
+        $surat = SuratPengantarRt::create([
+            'rt_id' => $this->ketuaRt->id,
+            'nama' => 'Budi Santoso',
+            'tempat_lahir' => 'Bojonegoro',
+            'tanggal_lahir' => '1995-05-12',
+            'nik' => '3522151205950001',
+            'agama' => 'Islam',
+            'status_perkawinan' => 'Belum Kawin',
+            'pekerjaan' => 'Wiraswasta',
+            'alamat' => 'Jl. Merpati No. 10',
+            'keperluan' => 'Pembuatan KTP Baru',
+            'status' => 'disetujui',
+        ]);
+
+        $response = $this->get(route('surat-rt.download-pdf', $surat->id));
+        
+        $response->assertStatus(200);
+        $response->assertHeader('content-type', 'application/pdf');
+    }
+
+    /**
+     * Test admin cannot download pending Surat Pengantar RT PDF.
+     */
+    public function test_admin_cannot_download_pending_surat_pengantar_rt_pdf(): void
+    {
+        $this->actingAs($this->admin);
+
+        $surat = SuratPengantarRt::create([
+            'rt_id' => $this->ketuaRt->id,
+            'nama' => 'Budi Santoso',
+            'tempat_lahir' => 'Bojonegoro',
+            'tanggal_lahir' => '1995-05-12',
+            'nik' => '3522151205950001',
+            'agama' => 'Islam',
+            'status_perkawinan' => 'Belum Kawin',
+            'pekerjaan' => 'Wiraswasta',
+            'alamat' => 'Jl. Merpati No. 10',
+            'keperluan' => 'Pembuatan KTP Baru',
+            'status' => 'pending',
+        ]);
+
+        $response = $this->get(route('surat-rt.download-pdf', $surat->id));
+        
+        $response->assertStatus(403);
+    }
 }
