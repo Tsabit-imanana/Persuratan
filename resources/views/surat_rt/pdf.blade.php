@@ -11,11 +11,12 @@
             font-size: 11pt;
             color: #1a1a1a;
             background: #fff;
+            padding: 0 40px;
         }
 
         @page {
             size: A4 portrait;
-            margin: 1.5cm 2cm 2cm 2cm;
+            margin: 1.5cm 3cm 2cm 3cm;
         }
 
         /* ── KOP SURAT ─────────────────────────────── */
