@@ -65,11 +65,7 @@
                 Pengantar RT
             </a>
 
-            <div class="pt-4 pb-2 px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">Uji Coba / Simulator</div>
-            <a href="{{ route('simulator.index') }}" class="flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 group {{ request()->routeIs('simulator.*') ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20' : 'text-slate-400 hover:bg-slate-900 hover:text-white' }}">
-                <svg class="w-5 h-5 mr-3 {{ request()->routeIs('simulator.*') ? 'text-white' : 'text-slate-500 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                Fonnte Webhook Simulator
-            </a>
+
         </nav>
 
         <!-- Sidebar Footer -->
