@@ -13,13 +13,7 @@
             Kembali ke Daftar Surat
         </a>
 
-        @if ($suratRt->status === 'pending')
-            <a href="{{ route('simulator.index', ['rt_id' => $suratRt->rt_id, 'message' => "ACC " . $suratRt->id]) }}" 
-                class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-emerald-600/10">
-                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                Simulasikan Approval WA
-            </a>
-        @endif
+
     </div>
 
     <!-- Status Banner Card -->
